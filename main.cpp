@@ -1,6 +1,13 @@
 #include<iostream>
 using namespace std;
 
+int createFile();
+int viewAll();
+int search();
+int modify();
+int deleteF();
+int exit();
+
 int menu(){
     int choose;
 
@@ -19,7 +26,27 @@ int menu(){
 }
 
 int main(){
+    int choice;
 
+    while(true){
+        choice = menu();
+
+        if(choice == 1){
+            createFile();
+        }else if(choice == 2){
+            viewAll();
+        }else if(choice == 3){
+            search();
+        }else if(choice == 4){
+            modify();
+        }else if(choice == 5){
+            deleteF();
+        }else if(choice == 6){
+            exit();
+        }else{
+            cout<<"Please Enter Proper Option: (1 to 6)\n";
+        }
+    }
 
     return 0;
 }
