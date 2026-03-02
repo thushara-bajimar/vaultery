@@ -1,22 +1,22 @@
 #include<iostream>
 using namespace std;
 
-int createFile();
+int menu();
+int createEntry();
 int viewAll();
 int search();
 int modify();
-int deleteF();
+int deleteEntry();
 int exit();
 
 int menu(){
     int choose;
 
-    cout<<" NAMASTE!!\n\nWELCOME TO VAULTERY!!"<<endl;
-    cout<<"1. Create File\n";
-    cout<<"2. View All Files\n";
-    cout<<"3. Search File\n";
-    cout<<"4. Modify File\n";
-    cout<<"5. Delete File\n";
+    cout<<"1. Create Entry\n";
+    cout<<"2. View All Entries\n";
+    cout<<"3. Search Entry\n";
+    cout<<"4. Modify Entry\n";
+    cout<<"5. Delete Entry\n";
     cout<<"6. Exit\n";
 
     cout<<"What do you want to do?\n";
@@ -25,14 +25,40 @@ int menu(){
     return choose;
 }
 
+int createEntry(){
+    cout<<"coming soon...\n\n";
+}
+
+int viewAll(){
+    cout<<"coming soon...\n\n";
+}
+
+int search(){
+    cout<<"coming soon...\n\n";
+}
+
+int modify(){
+    cout<<"coming soon...\n\n";
+}
+
+int deleteEntry(){
+    cout<<"coming soon...\n\n";
+}
+
+int exit(){
+    cout<<"coming soon...\n\n";
+}
+
 int main(){
     int choice;
+
+    cout<<" NAMASTE!!\n\nWELCOME TO VAULTERY!!"<<endl;
 
     while(true){
         choice = menu();
 
         if(choice == 1){
-            createFile();
+            createEntry();
         }else if(choice == 2){
             viewAll();
         }else if(choice == 3){
@@ -40,7 +66,7 @@ int main(){
         }else if(choice == 4){
             modify();
         }else if(choice == 5){
-            deleteF();
+            deleteEntry();
         }else if(choice == 6){
             exit();
         }else{
