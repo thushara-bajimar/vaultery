@@ -3,6 +3,8 @@ using namespace std;
 
 int menu();
 int createEntry();
+int notesEntry();
+int passwordEntry();
 int viewAll();
 int search();
 int modify();
@@ -25,8 +27,26 @@ int menu(){
     return choose;
 }
 
+int notesEntry(){
+    
+}
+
 int createEntry(){
-    cout<<"coming soon...\n\n";
+    int entry;
+
+    cout<<"What do you want to enter?\n\n";
+    cout<<"1. Enter Notes\n";
+    cout<<"2. Enter Password\n\n";
+
+    cin>>entry;
+
+    if(entry == 1){
+        notesEntry();
+    }else if(entry == 2){
+        passwordEntry();
+    }else{
+        cout<<"Please Enter Either 1 or 2\n\n";
+    }
 }
 
 int viewAll(){
