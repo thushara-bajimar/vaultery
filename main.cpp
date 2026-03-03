@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 using namespace std;
 
 int menu();
@@ -28,14 +29,37 @@ int menu(){
 }
 
 int notesEntry(){
-    
+    string title, content;
+
+    cin.ignore();
+
+    cout<<"The Title Is: ";
+    getline(cin, title);
+
+    cout<<"Enter The Content:\n";
+    getline(cin, content);
+    cout<<"\n";
+
+    ofstream file("vault.notes", ios::app);
+
+    file<<"***NOTE***\n";
+    file<<"Title: "<<title<<endl;
+    file<<"Content: "<<content<<endl;
+
+    file.close();
+
+    cout<<"File Created Successfully!!\n\n";
+}
+
+int passwordEntry(){
+    cout<<"coming soon...\n\n";
 }
 
 int createEntry(){
     int entry;
 
-    cout<<"What do you want to enter?\n\n";
-    cout<<"1. Enter Notes\n";
+    cout<<"What do you want to create?\n\n";
+    cout<<"1. Create Notes\n";
     cout<<"2. Enter Password\n\n";
 
     cin>>entry;
