@@ -1,9 +1,0 @@
-NOTE
-Title: 
-Content: hello
-NOTE
-Title: Namaste
-Content: Namaste is a greeting word
-NOTE
-Title: demo
-Content: namste everyone
