@@ -2,10 +2,10 @@
 #include<fstream>
 using namespace std;
 
-int menu();
-int createEntry();
-int notesEntry();
 int passwordEntry();
+int login();
+int menu();
+int notesEntry();
 int viewAll();
 int search();
 int modify();
@@ -33,16 +33,16 @@ int notesEntry(){
 
     cin.ignore();
 
-    cout<<"The Title Is: ";
+    cout<<"Title: ";
     getline(cin, title);
 
-    cout<<"Enter The Content:\n";
+    cout<<"Content:\n";
     getline(cin, content);
     cout<<"\n";
 
-    ofstream file("vault.notes", ios::app);
+    ofstream file("vault_notes.txt", ios::app);
 
-    file<<"***NOTE***\n";
+    file<<"***NOTES***\n";
     file<<"Title: "<<title<<endl;
     file<<"Content: "<<content<<endl;
 
@@ -52,25 +52,31 @@ int notesEntry(){
 }
 
 int passwordEntry(){
-    cout<<"coming soon...\n\n";
+    string username, password;
+
+    cin.ignore();
+
+    cout<<"Username: ";
+    getline(cin, username);
+
+    cout<<"Password: ";
+    getline(cin, password);
+
+    ofstream file("vault_password.txt", ios::app);
+
+    file<<"***ACCOUNT***\n";
+    file<<"Username: "<<username<<endl;
+    file<<"Password: "<<password<<endl;
+
+    file.close();
+
+    cout<<"Username and Password Saved Successfully!!\n\n";
 }
 
-int createEntry(){
-    int entry;
-
-    cout<<"What do you want to create?\n\n";
-    cout<<"1. Create Notes\n";
-    cout<<"2. Enter Password\n\n";
-
-    cin>>entry;
-
-    if(entry == 1){
-        notesEntry();
-    }else if(entry == 2){
-        passwordEntry();
-    }else{
-        cout<<"Please Enter Either 1 or 2\n\n";
-    }
+int login(){
+    // check if account exists
+    // if exists show menu....
+    
 }
 
 int viewAll(){
@@ -95,14 +101,33 @@ int exit(){
 
 int main(){
     int choice;
+    int opt;
 
     cout<<" NAMASTE!!\n\nWELCOME TO VAULTERY!!"<<endl;
+
+    cout<<"Already have an account?\n";
+    cout<<"1. Login\n";
+    cout<<"Don't have an account?\n";
+    cout<<"2. Create account\n\n";
+
+    cout<<"Enter your choice: ";
+    cin>>opt;
+
+    if(opt == 1){
+        login();
+    }else if(opt == 2){
+        passwordEntry();
+    }else{
+        cout<<"Please Enter Either 1 or 2\n\n";
+    }
+
+    //this menu will be written in login...
 
     while(true){
         choice = menu();
 
         if(choice == 1){
-            createEntry();
+            notesEntry();
         }else if(choice == 2){
             viewAll();
         }else if(choice == 3){
