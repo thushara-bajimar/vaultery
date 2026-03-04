@@ -76,7 +76,17 @@ int passwordEntry(){
 int login(){
     // check if account exists
     // if exists show menu....
-    
+
+    //enter username
+    //enter the password
+
+    //open file
+
+    //get 2 lines as stored username and password
+
+    //compare both
+    //if true, show the menu 
+    //else dialogue
 }
 
 int viewAll(){
