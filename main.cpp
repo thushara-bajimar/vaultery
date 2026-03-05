@@ -2,7 +2,7 @@
 #include<fstream>
 using namespace std;
 
-int passwordEntry();
+int accountEntry();
 int login();
 int menu();
 int notesEntry();
@@ -13,7 +13,7 @@ int deleteEntry();
 int exit();
 
 int menu(){
-    int choose;
+    int choice;
 
     cout<<"1. Create Entry\n";
     cout<<"2. View All Entries\n";
@@ -23,9 +23,27 @@ int menu(){
     cout<<"6. Exit\n";
 
     cout<<"What do you want to do?\n";
-    cin>>choose;
+    cin>>choice;
 
-    return choose;
+   while(true){
+
+        if(choice == 1){
+            notesEntry();
+        }else if(choice == 2){
+            viewAll();
+        }else if(choice == 3){
+            search();
+        }else if(choice == 4){
+            modify();
+        }else if(choice == 5){
+            deleteEntry();
+        }else if(choice == 6){
+            exit();
+        }else{
+            cout<<"Please Enter Proper Option: (1 to 6)\n";
+        }
+    }
+    return 0;
 }
 
 int notesEntry(){
@@ -51,7 +69,7 @@ int notesEntry(){
     cout<<"File Created Successfully!!\n\n";
 }
 
-int passwordEntry(){
+int accountEntry(){
     string username, password;
 
     cin.ignore();
@@ -62,7 +80,7 @@ int passwordEntry(){
     cout<<"Password: ";
     getline(cin, password);
 
-    ofstream file("vault_password.txt", ios::app);
+    ofstream file("vault_account.txt", ios::app);
 
     file<<"***ACCOUNT***\n";
     file<<"Username: "<<username<<endl;
@@ -71,20 +89,42 @@ int passwordEntry(){
     file.close();
 
     cout<<"Username and Password Saved Successfully!!\n\n";
+
+    login();
 }
 
 int login(){
+    string username, password;
     // check if account exists
     // if exists show menu....
 
     //enter username
+    cout<<"Username: \n";
+    getline(cin, username);
     //enter the password
+    cout<<"Password: \n";
+    getline(cin, password);
 
     //open file
+    ifstream file("vault_account.txt");
 
     //get 2 lines as stored username and password
+    string user, pass;
+
+    getline(file, user);
+    getline(file, pass);
+
+    file.close();
 
     //compare both
+    if(user == username && pass == password){
+        //menu;
+        menu();
+
+    }else{
+        cout<<"You don't have any such account. Please create an account.";
+        accountEntry();
+    }
     //if true, show the menu 
     //else dialogue
 }
@@ -126,14 +166,14 @@ int main(){
     if(opt == 1){
         login();
     }else if(opt == 2){
-        passwordEntry();
+        accountEntry();
     }else{
         cout<<"Please Enter Either 1 or 2\n\n";
     }
 
     //this menu will be written in login...
 
-    while(true){
+    /*while(true){
         choice = menu();
 
         if(choice == 1){
@@ -151,7 +191,7 @@ int main(){
         }else{
             cout<<"Please Enter Proper Option: (1 to 6)\n";
         }
-    }
+    }*/
 
     return 0;
 }
