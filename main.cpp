@@ -10,22 +10,23 @@ int viewAll();
 int search();
 int modify();
 int deleteEntry();
-int exit();
+int exitProg();
 
 int menu(){
     int choice;
 
-    cout<<"1. Create Entry\n";
-    cout<<"2. View All Entries\n";
-    cout<<"3. Search Entry\n";
-    cout<<"4. Modify Entry\n";
-    cout<<"5. Delete Entry\n";
-    cout<<"6. Exit\n";
-
-    cout<<"What do you want to do?\n";
-    cin>>choice;
-
    while(true){
+
+        cout<<"What do you want to do?\n";
+
+        cout<<"1. Create Entry\n";
+        cout<<"2. View All Entries\n";
+        cout<<"3. Search Entry\n";
+        cout<<"4. Modify Entry\n";
+        cout<<"5. Delete Entry\n";
+        cout<<"6. Exit\n";
+
+        cin>>choice;
 
         if(choice == 1){
             notesEntry();
@@ -38,7 +39,7 @@ int menu(){
         }else if(choice == 5){
             deleteEntry();
         }else if(choice == 6){
-            exit();
+            exitProg();
         }else{
             cout<<"Please Enter Proper Option: (1 to 6)\n";
         }
@@ -60,7 +61,7 @@ int notesEntry(){
 
     ofstream file("vault_notes.txt", ios::app);
 
-    file<<"***NOTES***\n";
+    //file<<"***NOTES***\n";
     file<<"Title: "<<title<<endl;
     file<<"Content: "<<content<<endl;
 
@@ -82,7 +83,6 @@ int accountEntry(){
 
     ofstream file("vault_account.txt", ios::app);
 
-    file<<"***ACCOUNT***\n";
     file<<"Username: "<<username<<endl;
     file<<"Password: "<<password<<endl;
 
@@ -95,14 +95,13 @@ int accountEntry(){
 
 int login(){
     string username, password;
-    // check if account exists
-    // if exists show menu....
 
-    //enter username
-    cout<<"Username: \n";
+    cin.ignore();
+   
+    cout<<"Username: ";
     getline(cin, username);
-    //enter the password
-    cout<<"Password: \n";
+    
+    cout<<"Password: ";
     getline(cin, password);
 
     //open file
@@ -111,18 +110,31 @@ int login(){
     //get 2 lines as stored username and password
     string user, pass;
 
-    getline(file, user);
-    getline(file, pass);
+    bool found = false;
+
+    while(getline(file, user) && getline(file, pass)){
+        if(user == username && pass == password){
+            found = true;
+            break;
+        }
+    }
 
     file.close();
 
+    /*cout<<user;
+    cout<<pass;
+    cout<<username;
+    cout<<password;*/
+
     //compare both
-    if(user == username && pass == password){
+    //if(user == username && pass == password){
         //menu;
+    if(found){
+        cout<<"Login Successful!\n";
         menu();
 
     }else{
-        cout<<"You don't have any such account. Please create an account.";
+        cout<<"You don't have any such account. Please create an account.\n";
         accountEntry();
     }
     //if true, show the menu 
@@ -145,7 +157,7 @@ int deleteEntry(){
     cout<<"coming soon...\n\n";
 }
 
-int exit(){
+int exitProg(){
     cout<<"coming soon...\n\n";
 }
 
