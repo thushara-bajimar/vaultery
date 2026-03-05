@@ -83,12 +83,13 @@ int accountEntry(){
 
     ofstream file("vault_account.txt", ios::app);
 
-    file<<"Username: "<<username<<endl;
-    file<<"Password: "<<password<<endl;
+    file<<username<<endl;
+    file<<password<<endl;
 
     file.close();
 
     cout<<"Username and Password Saved Successfully!!\n\n";
+    cout<<"Please press enter\n";
 
     login();
 }
@@ -158,7 +159,9 @@ int deleteEntry(){
 }
 
 int exitProg(){
-    cout<<"coming soon...\n\n";
+    cout<<"coming soon...thank u\n\n";
+
+    exit(0);
 }
 
 int main(){
