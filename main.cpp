@@ -155,24 +155,44 @@ int viewAll(){
     }
 
     file.close();
+
+    return 0;
 }
 
 int search(){
     string searchTitle;
     string line;
 
+    cin.ignore();
+
     cout<<"Enter the title of the entry you want to search: ";
     getline(cin, searchTitle);
 
     ifstream file("vault_notes.txt");
 
-    getline(file, line);
+    bool found = false;
 
-    do{
-        if(searchTitle == title){
+    while(getline(file, line)){
+        if(line == "Title: " + searchTitle){
+            cout<<"\nEntry Found!\n";
+
             cout<<line<<endl;
+
+            while(getline(file, line) && line != "---"){
+                cout<<line<<endl;
+            }
+            found = true;
+            break;
         }
-    }while(line == title)
+    }
+    if(!found){
+        cout<<"Entry with this title is not found!!\n";
+    }
+
+    file.close();
+
+    return 0;
+
 }
 
 int modify(){
