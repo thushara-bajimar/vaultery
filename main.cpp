@@ -2,6 +2,8 @@
 #include<fstream>
 using namespace std;
 
+string title;
+
 int accountEntry();
 int login();
 int menu();
@@ -17,9 +19,9 @@ int menu(){
 
    while(true){
 
-        cout<<"What do you want to do?\n";
+        cout<<"\nWhat do you want to do?\n";
 
-        cout<<"1. Create Entry\n";
+        cout<<"1. Notes Entry\n";
         cout<<"2. View All Entries\n";
         cout<<"3. Search Entry\n";
         cout<<"4. Modify Entry\n";
@@ -64,6 +66,7 @@ int notesEntry(){
     //file<<"***NOTES***\n";
     file<<"Title: "<<title<<endl;
     file<<"Content: "<<content<<endl;
+    file<<"---"<<endl;
 
     file.close();
 
@@ -143,11 +146,33 @@ int login(){
 }
 
 int viewAll(){
-    cout<<"coming soon...\n\n";
+    string line;
+
+    ifstream file("vault_notes.txt");
+
+    while(getline(file, line)){
+        cout<<line<<endl;
+    }
+
+    file.close();
 }
 
 int search(){
-    cout<<"coming soon...\n\n";
+    string searchTitle;
+    string line;
+
+    cout<<"Enter the title of the entry you want to search: ";
+    getline(cin, searchTitle);
+
+    ifstream file("vault_notes.txt");
+
+    getline(file, line);
+
+    do{
+        if(searchTitle == title){
+            cout<<line<<endl;
+        }
+    }while(line == title)
 }
 
 int modify(){
