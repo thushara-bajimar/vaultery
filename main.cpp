@@ -204,7 +204,7 @@ int deleteEntry(){
 }
 
 int exitProg(){
-    cout<<"EXITING.....\n\nThank you!!. Let's meet next time....\n\n";
+    cout<<"\n\nEXITING.....\n\nThank you!!. Let's meet next time....\n\n";
 
     exit(0);
 }
