@@ -246,7 +246,42 @@ int modify(){
 }
 
 int deleteEntry(){
-    cout<<"coming soon...\n\n";
+    string delTitle;
+    string line;
+
+    cin.ignore();
+
+    cout<<"\nEnter the entry you want to delete: ";
+    getline(cin, delTitle);
+
+    ifstream file("vault_notes.txt");
+    ofstream temp("temp_notes.txt");
+
+    bool found = false;
+
+    while(getline(file, line)){
+        if(line == "Title: " + delTitle){
+
+            found = true;
+
+            while(getline(file, line) && line != "---");
+        }else{
+            temp<<line<<endl;
+        }
+    }
+    file.close();
+    temp.close();
+
+    remove("vault_notes.txt");
+    rename("temp_notes.txt", "vault_notes.txt");
+
+    if(found){
+        cout<<"Entry deleted successfully!\n";
+    }else{
+        cout<<"Entry not found!\n";
+    }
+
+    return 0;
 }
 
 int exitProg(){
