@@ -196,7 +196,53 @@ int search(){
 }
 
 int modify(){
-    cout<<"coming soon...\n\n";
+    string modTitle;
+    string line;
+
+    cin.ignore();
+
+    cout<<"\nEnter the entry you want to modify: ";
+    getline(cin, modTitle);
+
+    ifstream file("vault_notes.txt");
+    ofstream temp("temp_notes.txt");
+
+    bool found = false;
+
+    while(getline(file, line)){
+        if(line == "Title: " + modTitle){
+            string newTitle, newContent;
+
+            cout<<"Enter the new title: ";
+            getline(cin, newTitle);
+
+            cout<<"Enter the new content:\n";
+            getline(cin, newContent);
+
+            temp<<"Title: "<<newTitle<<endl;
+            temp<<"Content: "<<newContent<<endl;
+            temp<<"---"<<endl;
+
+            found = true;
+
+            while(getline(file, line) && line != "---");
+        }else{
+            temp<<line<<endl;
+        }
+    }
+    file.close();
+    temp.close();
+
+    remove("vault_notes.txt");
+    rename("temp_notes.txt", "vault_notes.txt");
+
+    if(found){
+        cout<<"Entry modified successfully!\n";
+    }else{
+        cout<<"Entry not found!\n";
+    }
+
+    return 0;
 }
 
 int deleteEntry(){
