@@ -21,6 +21,11 @@ int menu(){
 
         cout<<"\nWhat do you want to do?\n";
 
+        cout<<"\n=================================================\n";
+        cout<<"                 MAIN MENU\n";
+        cout<<"=================================================\n";
+    
+
         cout<<"1. Notes Entry\n";
         cout<<"2. View All Entries\n";
         cout<<"3. Search Entry\n";
@@ -50,6 +55,10 @@ int menu(){
 }
 
 int notesEntry(){
+    cout<<"\n=================================================\n";
+    cout<<"                 ENTRY\n";
+    cout<<"=================================================\n";
+    
     string title, content;
 
     cin.ignore();
@@ -70,10 +79,16 @@ int notesEntry(){
 
     file.close();
 
-    cout<<"File Created Successfully!!\n\n";
+    cout<<"\n$===$ File Created Successfully!! $===$\n\n";
+
+    return 0;
 }
 
 int accountEntry(){
+    cout<<"\n=================================================\n";
+    cout<<"                 CREATE ACCOUNT\n";
+    cout<<"=================================================\n";
+    
     string username, password;
 
     cin.ignore();
@@ -91,13 +106,19 @@ int accountEntry(){
 
     file.close();
 
-    cout<<"Username and Password Saved Successfully!!\n\n";
+    cout<<"$===$ Username and Password Saved Successfully!! $===$\n\n";
     cout<<"Please press enter\n";
 
     login();
+
+    return 0;
 }
 
 int login(){
+    cout<<"\n=================================================\n";
+    cout<<"                 LOGIN\n";
+    cout<<"=================================================\n";
+    
     string username, password;
 
     cin.ignore();
@@ -134,7 +155,8 @@ int login(){
     //if(user == username && pass == password){
         //menu;
     if(found){
-        cout<<"Login Successful!\n";
+        cout<<"\n$===$ Login Successful! $===$\n";
+        cout<<"\nWelcome back, "<<username<<"!\n";
         menu();
 
     }else{
@@ -146,9 +168,17 @@ int login(){
 }
 
 int viewAll(){
+    cout<<"\n=================================================\n";
+    cout<<"                 ALL SAVED NOTES\n";
+    cout<<"=================================================\n";
     string line;
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
 
     while(getline(file, line)){
         cout<<line<<endl;
@@ -160,21 +190,30 @@ int viewAll(){
 }
 
 int search(){
+    cout<<"\n=================================================\n";
+    cout<<"                 SEARCH\n";
+    cout<<"=================================================\n";
+    
     string searchTitle;
     string line;
 
     cin.ignore();
 
-    cout<<"Enter the title of the entry you want to search: ";
+    cout<<"\nEnter the title of the entry you want to search: ";
     getline(cin, searchTitle);
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
 
     bool found = false;
 
     while(getline(file, line)){
         if(line == "Title: " + searchTitle){
-            cout<<"\nEntry Found!\n";
+            cout<<"\nEntry Found!\n\n";
 
             cout<<line<<endl;
 
@@ -196,6 +235,10 @@ int search(){
 }
 
 int modify(){
+    cout<<"\n=================================================\n";
+    cout<<"                 MODIFICATION\n";
+    cout<<"=================================================\n";
+    
     string modTitle;
     string line;
 
@@ -203,8 +246,15 @@ int modify(){
 
     cout<<"\nEnter the entry you want to modify: ";
     getline(cin, modTitle);
+    cout<<endl;
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
+
     ofstream temp("temp_notes.txt");
 
     bool found = false;
@@ -237,7 +287,7 @@ int modify(){
     rename("temp_notes.txt", "vault_notes.txt");
 
     if(found){
-        cout<<"Entry modified successfully!\n";
+        cout<<"\n$===$ Entry modified successfully! $===$\n";
     }else{
         cout<<"Entry not found!\n";
     }
@@ -246,6 +296,10 @@ int modify(){
 }
 
 int deleteEntry(){
+    cout<<"\n=================================================\n";
+    cout<<"                 DELETION\n";
+    cout<<"=================================================\n";
+    
     string delTitle;
     string line;
 
@@ -255,6 +309,12 @@ int deleteEntry(){
     getline(cin, delTitle);
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
+    
     ofstream temp("temp_notes.txt");
 
     bool found = false;
@@ -276,7 +336,7 @@ int deleteEntry(){
     rename("temp_notes.txt", "vault_notes.txt");
 
     if(found){
-        cout<<"Entry deleted successfully!\n";
+        cout<<"\n$===$ Entry deleted successfully! $===$\n";
     }else{
         cout<<"Entry not found!\n";
     }
@@ -285,7 +345,7 @@ int deleteEntry(){
 }
 
 int exitProg(){
-    cout<<"\n\nEXITING.....\n\nThank you!!. Let's meet next time....\n\n";
+    cout<<"\n\n\t====##**EXITING.....**##====\n\n====##**Thank you!!. Let's meet next time....**##====\n\n";
 
     exit(0);
 }
@@ -293,8 +353,12 @@ int exitProg(){
 int main(){
     int choice;
     int opt;
+    cout<<"=============================================================\n";
+    cout<<"\t# = # = # = # = # = # = # = # = # = # = # = #\n";
+    cout<<"\t\t\t* NAMASTE!! *\n\n\t\t* WELCOME TO VAULTERY!! *"<<endl;
+    cout<<"\t# = # = # = # = # = # = # = # = # = # = #\n";
+    cout<<"=============================================================\n\n";
 
-    cout<<" NAMASTE!!\n\nWELCOME TO VAULTERY!!"<<endl;
 
     cout<<"Already have an account?\n";
     cout<<"1. Login\n";
@@ -303,6 +367,7 @@ int main(){
 
     cout<<"Enter your choice: ";
     cin>>opt;
+    cout<<endl;
 
     if(opt == 1){
         login();
