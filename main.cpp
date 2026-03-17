@@ -156,6 +156,7 @@ int login(){
         //menu;
     if(found){
         cout<<"\n$===$ Login Successful! $===$\n";
+        cout<<"\nWelcome back, "<<username<<"!\n";
         menu();
 
     }else{
@@ -173,6 +174,11 @@ int viewAll(){
     string line;
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
 
     while(getline(file, line)){
         cout<<line<<endl;
@@ -197,6 +203,11 @@ int search(){
     getline(cin, searchTitle);
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
 
     bool found = false;
 
@@ -238,6 +249,12 @@ int modify(){
     cout<<endl;
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
+
     ofstream temp("temp_notes.txt");
 
     bool found = false;
@@ -292,6 +309,12 @@ int deleteEntry(){
     getline(cin, delTitle);
 
     ifstream file("vault_notes.txt");
+
+    if(!file){
+        cout<<"No entries found!!\n\n";
+        return 0;
+    }
+    
     ofstream temp("temp_notes.txt");
 
     bool found = false;
@@ -330,12 +353,12 @@ int exitProg(){
 int main(){
     int choice;
     int opt;
-
+    cout<<"=============================================================\n";
     cout<<"\t# = # = # = # = # = # = # = # = # = # = # = #\n";
     cout<<"\t\t\t* NAMASTE!! *\n\n\t\t* WELCOME TO VAULTERY!! *"<<endl;
     cout<<"\t# = # = # = # = # = # = # = # = # = # = #\n";
+    cout<<"=============================================================\n\n";
 
-    cout<<"\n=  ===  =  ===  =  ===  =  ===  =  ===  =  ===  =  ===   =\n\n";
 
     cout<<"Already have an account?\n";
     cout<<"1. Login\n";
