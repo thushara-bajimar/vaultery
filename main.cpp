@@ -1,3 +1,12 @@
+/* 
+  VAULTERY - Personal CLI Vault
+    - User login system
+    - create, view, search, modify and delete notes
+    - file-based storage
+
+    Author - thushara-bajimar
+*/
+
 #include<iostream>
 #include<fstream>
 using namespace std;
@@ -14,6 +23,7 @@ int modify();
 int deleteEntry();
 int exitProg();
 
+// Displays main menu and handles user choices
 int menu(){
     int choice;
 
@@ -54,6 +64,7 @@ int menu(){
     return 0;
 }
 
+// Creates notes with title and content; stores it in the file
 int notesEntry(){
     cout<<"\n=================================================\n";
     cout<<"                 ENTRY\n";
@@ -84,6 +95,7 @@ int notesEntry(){
     return 0;
 }
 
+// Creates an account with username and password; stores it in the file
 int accountEntry(){
     cout<<"\n=================================================\n";
     cout<<"                 CREATE ACCOUNT\n";
@@ -114,6 +126,7 @@ int accountEntry(){
     return 0;
 }
 
+// Handles user login by checking credentials from the file
 int login(){
     cout<<"\n=================================================\n";
     cout<<"                 LOGIN\n";
@@ -167,6 +180,7 @@ int login(){
     //else dialogue
 }
 
+// Displays all the saved notes
 int viewAll(){
     cout<<"\n=================================================\n";
     cout<<"                 ALL SAVED NOTES\n";
@@ -189,6 +203,7 @@ int viewAll(){
     return 0;
 }
 
+// Search by title
 int search(){
     cout<<"\n=================================================\n";
     cout<<"                 SEARCH\n";
@@ -217,6 +232,7 @@ int search(){
 
             cout<<line<<endl;
 
+            // Print content until separator is reached
             while(getline(file, line) && line != "---"){
                 cout<<line<<endl;
             }
@@ -234,6 +250,7 @@ int search(){
 
 }
 
+// Modify the existing notes
 int modify(){
     cout<<"\n=================================================\n";
     cout<<"                 MODIFICATION\n";
@@ -255,10 +272,11 @@ int modify(){
         return 0;
     }
 
-    ofstream temp("temp_notes.txt");
+    ofstream temp("temp_notes.txt"); // New file to store updates
 
     bool found = false;
 
+    // Recieves new title and new content if entered title matches
     while(getline(file, line)){
         if(line == "Title: " + modTitle){
             string newTitle, newContent;
@@ -283,6 +301,7 @@ int modify(){
     file.close();
     temp.close();
 
+    // Replace original file with the updated one 
     remove("vault_notes.txt");
     rename("temp_notes.txt", "vault_notes.txt");
 
@@ -295,6 +314,7 @@ int modify(){
     return 0;
 }
 
+// Delete title and content
 int deleteEntry(){
     cout<<"\n=================================================\n";
     cout<<"                 DELETION\n";
@@ -315,10 +335,11 @@ int deleteEntry(){
         return 0;
     }
     
-    ofstream temp("temp_notes.txt");
+    ofstream temp("temp_notes.txt"); // New file to store updates
 
     bool found = false;
 
+    // Copy all entries except the one to be deleted
     while(getline(file, line)){
         if(line == "Title: " + delTitle){
 
@@ -332,6 +353,7 @@ int deleteEntry(){
     file.close();
     temp.close();
 
+    // Replace original file with the updated one
     remove("vault_notes.txt");
     rename("temp_notes.txt", "vault_notes.txt");
 
@@ -344,12 +366,14 @@ int deleteEntry(){
     return 0;
 }
 
+// Terminate the program
 int exitProg(){
     cout<<"\n\n\t====##**EXITING.....**##====\n\n====##**Thank you!!. Let's meet next time....**##====\n\n";
 
     exit(0);
 }
 
+// Display welcome screen and initial user options
 int main(){
     int choice;
     int opt;
