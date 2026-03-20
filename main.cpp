@@ -9,22 +9,93 @@
 
 #include<iostream>
 #include<fstream>
+#include<limits>
 using namespace std;
 
-string title;
+void accountEntry();
+void login();
+void menu();
+void createNote();
+void viewAllNotes();
+void searchNote();
+void modifyNote();
+void deleteNote();
+void exitProgram();
 
-int accountEntry();
-int login();
-int menu();
-int notesEntry();
-int viewAll();
-int search();
-int modify();
-int deleteEntry();
-int exitProg();
+// Creates an account with username and password; stores it in the file
+void accountEntry(){
+    cout<<"\n=================================================\n";
+    cout<<"                 CREATE ACCOUNT\n";
+    cout<<"=================================================\n";
+    
+    string username, password;
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    cout<<"Username: ";
+    getline(cin, username);
+
+    cout<<"Password: ";
+    getline(cin, password);
+
+    ofstream file("vault_account.txt", ios::app);
+
+    file<<username<<endl;
+    file<<password<<endl;
+
+    file.close();
+
+    cout<<"===== Username and Password Saved Successfully!! =====\n\n";
+    cout<<"Please press enter\n";
+
+    login();
+    
+}
+
+// Handles user login by checking credentials from the file
+void login(){
+    cout<<"\n=================================================\n";
+    cout<<"                 LOGIN\n";
+    cout<<"=================================================\n";
+    
+    string username, password;
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+   
+    cout<<"Username: ";
+    getline(cin, username);
+    
+    cout<<"Password: ";
+    getline(cin, password);
+
+    ifstream file("vault_account.txt");
+
+    string user, pass;
+
+    bool found = false;
+
+    while(getline(file, user) && getline(file, pass)){
+        if(user == username && pass == password){
+            found = true;
+            break;
+        }
+    }
+
+    file.close();
+
+    if(found){
+        cout<<"\n===== Login Successful! =====\n";
+        cout<<"\nWelcome back, "<<username<<"!\n";
+        menu();
+
+    }else{
+        cout<<"You don't have any such account. Please create an account.\n";
+        accountEntry();
+    }
+}
 
 // Displays main menu and handles user choices
-int menu(){
+void menu(){
     int choice;
 
    while(true){
@@ -36,43 +107,42 @@ int menu(){
         cout<<"=================================================\n";
     
 
-        cout<<"1. Notes Entry\n";
-        cout<<"2. View All Entries\n";
-        cout<<"3. Search Entry\n";
-        cout<<"4. Modify Entry\n";
-        cout<<"5. Delete Entry\n";
+        cout<<"1. Create Note\n";
+        cout<<"2. View All Notes\n";
+        cout<<"3. Search Note\n";
+        cout<<"4. Modify Note\n";
+        cout<<"5. Delete Note\n";
         cout<<"6. Exit\n";
 
         cin>>choice;
 
         if(choice == 1){
-            notesEntry();
+            createNote();
         }else if(choice == 2){
-            viewAll();
+            viewAllNotes();
         }else if(choice == 3){
-            search();
+            searchNote();
         }else if(choice == 4){
-            modify();
+            modifyNote();
         }else if(choice == 5){
-            deleteEntry();
+            deleteNote();
         }else if(choice == 6){
-            exitProg();
+            exitProgram();
         }else{
             cout<<"Please Enter Proper Option: (1 to 6)\n";
         }
     }
-    return 0;
 }
 
 // Creates notes with title and content; stores it in the file
-int notesEntry(){
+void createNote(){
     cout<<"\n=================================================\n";
     cout<<"                 ENTRY\n";
     cout<<"=================================================\n";
     
     string title, content;
 
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"Title: ";
     getline(cin, title);
@@ -90,98 +160,12 @@ int notesEntry(){
 
     file.close();
 
-    cout<<"\n$===$ File Created Successfully!! $===$\n\n";
+    cout<<"\n===== File Created Successfully!! =====\n\n";
 
-    return 0;
-}
-
-// Creates an account with username and password; stores it in the file
-int accountEntry(){
-    cout<<"\n=================================================\n";
-    cout<<"                 CREATE ACCOUNT\n";
-    cout<<"=================================================\n";
-    
-    string username, password;
-
-    cin.ignore();
-
-    cout<<"Username: ";
-    getline(cin, username);
-
-    cout<<"Password: ";
-    getline(cin, password);
-
-    ofstream file("vault_account.txt", ios::app);
-
-    file<<username<<endl;
-    file<<password<<endl;
-
-    file.close();
-
-    cout<<"$===$ Username and Password Saved Successfully!! $===$\n\n";
-    cout<<"Please press enter\n";
-
-    login();
-
-    return 0;
-}
-
-// Handles user login by checking credentials from the file
-int login(){
-    cout<<"\n=================================================\n";
-    cout<<"                 LOGIN\n";
-    cout<<"=================================================\n";
-    
-    string username, password;
-
-    cin.ignore();
-   
-    cout<<"Username: ";
-    getline(cin, username);
-    
-    cout<<"Password: ";
-    getline(cin, password);
-
-    //open file
-    ifstream file("vault_account.txt");
-
-    //get 2 lines as stored username and password
-    string user, pass;
-
-    bool found = false;
-
-    while(getline(file, user) && getline(file, pass)){
-        if(user == username && pass == password){
-            found = true;
-            break;
-        }
-    }
-
-    file.close();
-
-    /*cout<<user;
-    cout<<pass;
-    cout<<username;
-    cout<<password;*/
-
-    //compare both
-    //if(user == username && pass == password){
-        //menu;
-    if(found){
-        cout<<"\n$===$ Login Successful! $===$\n";
-        cout<<"\nWelcome back, "<<username<<"!\n";
-        menu();
-
-    }else{
-        cout<<"You don't have any such account. Please create an account.\n";
-        accountEntry();
-    }
-    //if true, show the menu 
-    //else dialogue
 }
 
 // Displays all the saved notes
-int viewAll(){
+void viewAllNotes(){
     cout<<"\n=================================================\n";
     cout<<"                 ALL SAVED NOTES\n";
     cout<<"=================================================\n";
@@ -191,20 +175,26 @@ int viewAll(){
 
     if(!file){
         cout<<"No entries found!!\n\n";
-        return 0;
+        return;
     }
 
+    bool isEmpty = true;
+
     while(getline(file, line)){
-        cout<<line<<endl;
+    cout<<line<<endl;
+    isEmpty = false;
+    }
+
+    if(isEmpty){
+        cout<<"No entries available!\n";
     }
 
     file.close();
 
-    return 0;
 }
 
 // Search by title
-int search(){
+void searchNote(){
     cout<<"\n=================================================\n";
     cout<<"                 SEARCH\n";
     cout<<"=================================================\n";
@@ -212,7 +202,7 @@ int search(){
     string searchTitle;
     string line;
 
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the title of the entry you want to search: ";
     getline(cin, searchTitle);
@@ -221,7 +211,7 @@ int search(){
 
     if(!file){
         cout<<"No entries found!!\n\n";
-        return 0;
+        return;
     }
 
     bool found = false;
@@ -246,12 +236,10 @@ int search(){
 
     file.close();
 
-    return 0;
-
 }
 
 // Modify the existing notes
-int modify(){
+void modifyNote(){
     cout<<"\n=================================================\n";
     cout<<"                 MODIFICATION\n";
     cout<<"=================================================\n";
@@ -259,7 +247,7 @@ int modify(){
     string modTitle;
     string line;
 
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to modify: ";
     getline(cin, modTitle);
@@ -269,14 +257,14 @@ int modify(){
 
     if(!file){
         cout<<"No entries found!!\n\n";
-        return 0;
+        return;
     }
 
     ofstream temp("temp_notes.txt"); // New file to store updates
 
     bool found = false;
 
-    // Recieves new title and new content if entered title matches
+    // If title matches, get new title and content from user
     while(getline(file, line)){
         if(line == "Title: " + modTitle){
             string newTitle, newContent;
@@ -302,20 +290,24 @@ int modify(){
     temp.close();
 
     // Replace original file with the updated one 
-    remove("vault_notes.txt");
-    rename("temp_notes.txt", "vault_notes.txt");
+    if(remove("vault_notes.txt") != 0){
+    cout<<"Error deleting old file!\n";
+}
+
+    if(rename("temp_notes.txt", "vault_notes.txt") != 0){
+        cout<<"Error updating file!\n";
+    }
 
     if(found){
-        cout<<"\n$===$ Entry modified successfully! $===$\n";
+        cout<<"\n===== Entry modified successfully! =====\n";
     }else{
         cout<<"Entry not found!\n";
     }
 
-    return 0;
 }
 
 // Delete title and content
-int deleteEntry(){
+void deleteNote(){
     cout<<"\n=================================================\n";
     cout<<"                 DELETION\n";
     cout<<"=================================================\n";
@@ -323,7 +315,7 @@ int deleteEntry(){
     string delTitle;
     string line;
 
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to delete: ";
     getline(cin, delTitle);
@@ -332,7 +324,7 @@ int deleteEntry(){
 
     if(!file){
         cout<<"No entries found!!\n\n";
-        return 0;
+        return;
     }
     
     ofstream temp("temp_notes.txt"); // New file to store updates
@@ -358,19 +350,19 @@ int deleteEntry(){
     rename("temp_notes.txt", "vault_notes.txt");
 
     if(found){
-        cout<<"\n$===$ Entry deleted successfully! $===$\n";
+        cout<<"\n===== Entry deleted successfully! =====\n";
     }else{
-        cout<<"Entry not found!\n";
+        cout<<"\nEntry not found!\n";
     }
 
-    return 0;
 }
 
 // Terminate the program
-int exitProg(){
-    cout<<"\n\n\t====##**EXITING.....**##====\n\n====##**Thank you!!. Let's meet next time....**##====\n\n";
+void exitProgram(){
+    cout<<"\n\n\t======**EXITING.....**======\n\n======**Thank you!!. Let's meet next time....**======\n\n";
 
     exit(0);
+
 }
 
 // Display welcome screen and initial user options
@@ -400,28 +392,5 @@ int main(){
     }else{
         cout<<"Please Enter Either 1 or 2\n\n";
     }
-
-    //this menu will be written in login...
-
-    /*while(true){
-        choice = menu();
-
-        if(choice == 1){
-            notesEntry();
-        }else if(choice == 2){
-            viewAll();
-        }else if(choice == 3){
-            search();
-        }else if(choice == 4){
-            modify();
-        }else if(choice == 5){
-            deleteEntry();
-        }else if(choice == 6){
-            exit();
-        }else{
-            cout<<"Please Enter Proper Option: (1 to 6)\n";
-        }
-    }*/
-
     return 0;
 }
