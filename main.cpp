@@ -137,7 +137,7 @@ void menu(){
 // Creates notes with title and content; stores it in the file
 void createNote(){
     cout<<"\n=================================================\n";
-    cout<<"                 ENTRY\n";
+    cout<<"                 CREATE NOTE\n";
     cout<<"=================================================\n";
     
     string title, content;
@@ -291,8 +291,8 @@ void modifyNote(){
 
     // Replace original file with the updated one 
     if(remove("vault_notes.txt") != 0){
-    cout<<"Error deleting old file!\n";
-}
+        cout<<"Error modifying old file!\n";
+    }
 
     if(rename("temp_notes.txt", "vault_notes.txt") != 0){
         cout<<"Error updating file!\n";
@@ -345,9 +345,14 @@ void deleteNote(){
     file.close();
     temp.close();
 
-    // Replace original file with the updated one
-    remove("vault_notes.txt");
-    rename("temp_notes.txt", "vault_notes.txt");
+    // Replace original file with the updated one 
+    if(remove("vault_notes.txt") != 0){
+        cout<<"Error deleting old file!\n";
+    }
+
+    if(rename("temp_notes.txt", "vault_notes.txt") != 0){
+        cout<<"Error updating file!\n";
+    }
 
     if(found){
         cout<<"\n===== Entry deleted successfully! =====\n";
@@ -385,12 +390,18 @@ int main(){
     cin>>opt;
     cout<<endl;
 
+    while(opt != 1 && opt != 2){
+        cout<<"Please Enter Either 1 or 2\n\n";
+        cout<<"Enter your choice: ";
+        cin>>opt;
+        cout<<endl;
+    }
+
     if(opt == 1){
         login();
     }else if(opt == 2){
         accountEntry();
-    }else{
-        cout<<"Please Enter Either 1 or 2\n\n";
     }
+
     return 0;
 }
