@@ -100,7 +100,7 @@ void menu(){
 
    while(true){
 
-        cout<<"\nWhat do you want to do?\n";
+        cout<<"\nWhat do you want to do?\nChoose any option from the menu below:\n";
 
         cout<<"\n=================================================\n";
         cout<<"                 MAIN MENU\n";
