@@ -47,6 +47,14 @@ It supports creating, viewing, searching, modifying, and deleting notes using fi
 
 ## SAMPLE OUTPUT
 
+### WELCOME SCREEN
+![Welcome](vaultSS/welcome.png)
+
+### MAIN MENU
+![Menu](vaultSS/menu.png)
+
+### CREATE NOTE FEATURE
+![Create](vaultSS/create.png)
 
 ---------------
 
