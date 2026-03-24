@@ -10,9 +10,10 @@
 #include<iostream>
 #include<fstream>
 #include<limits>
+#include<cstdlib>
 using namespace std;
 
-void accountEntry();
+void createAccount();
 void login();
 void menu();
 void createNote();
@@ -23,14 +24,15 @@ void deleteNote();
 void exitProgram();
 
 // Creates an account with username and password; stores it in the file
-void accountEntry(){
+void createAccount(){
     cout<<"\n=================================================\n";
     cout<<"                 CREATE ACCOUNT\n";
     cout<<"=================================================\n";
     
     string username, password;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout<<"\nPlease create your account by entering the following details:\n\n";
 
     cout<<"Username: ";
     getline(cin, username);
@@ -46,7 +48,7 @@ void accountEntry(){
     file.close();
 
     cout<<"===== Username and Password Saved Successfully!! =====\n\n";
-    cout<<"Please press enter\n";
+    //cout<<"Please press enter\n";
 
     login();
     
@@ -60,7 +62,7 @@ void login(){
     
     string username, password;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
    
     cout<<"Username: ";
     getline(cin, username);
@@ -87,10 +89,12 @@ void login(){
         cout<<"\n===== Login Successful! =====\n";
         cout<<"\nWelcome back, "<<username<<"!\n";
         menu();
+        return;
 
     }else{
         cout<<"You don't have any such account. Please create an account.\n";
-        accountEntry();
+        //createAccount();
+        return;
     }
 }
 
@@ -115,6 +119,7 @@ void menu(){
         cout<<"6. Exit\n";
 
         cin>>choice;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         if(choice == 1){
             createNote();
@@ -142,7 +147,7 @@ void createNote(){
     
     string title, content;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"Title: ";
     getline(cin, title);
@@ -153,6 +158,11 @@ void createNote(){
 
     ofstream file("vault_notes.txt", ios::app);
 
+    if(!file){
+        cout<<"Error opening file for writing!\n";
+        return;
+    }
+
     //file<<"***NOTES***\n";
     file<<"Title: "<<title<<endl;
     file<<"Content: "<<content<<endl;
@@ -161,6 +171,9 @@ void createNote(){
     file.close();
 
     cout<<"\n===== File Created Successfully!! =====\n\n";
+
+    cout<<"Please press enter to return to the main menu...\n";
+    cin.get();
 
 }
 
@@ -202,7 +215,7 @@ void searchNote(){
     string searchTitle;
     string line;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the title of the entry you want to search: ";
     getline(cin, searchTitle);
@@ -247,7 +260,7 @@ void modifyNote(){
     string modTitle;
     string line;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to modify: ";
     getline(cin, modTitle);
@@ -304,6 +317,8 @@ void modifyNote(){
         cout<<"Entry not found!\n";
     }
 
+    cout<<"Please press enter to return to the main menu...\n";
+    cin.get();
 }
 
 // Delete title and content
@@ -315,7 +330,7 @@ void deleteNote(){
     string delTitle;
     string line;
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to delete: ";
     getline(cin, delTitle);
@@ -360,6 +375,9 @@ void deleteNote(){
         cout<<"\nEntry not found!\n";
     }
 
+    cout<<"Please press enter to return to the main menu...\n";
+    cin.get();
+
 }
 
 // Terminate the program
@@ -374,6 +392,8 @@ void exitProgram(){
 int main(){
     int choice;
     int opt;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     cout<<"=============================================================\n";
     cout<<"\t# = # = # = # = # = # = # = # = # = # = # = #\n";
     cout<<"\t\t\t* NAMASTE!! *\n\n\t\t* WELCOME TO VAULTERY!! *"<<endl;
@@ -400,7 +420,7 @@ int main(){
     if(opt == 1){
         login();
     }else if(opt == 2){
-        accountEntry();
+        createAccount();
     }
 
     return 0;
