@@ -2,7 +2,7 @@
 
 A simple CLI-based personal vault built using C++.
 
-Vaultery allows users to store and manage personal notes through a command-line interface.
+Vaultery includes a basic user authentication system and allows users to store and manage personal notes through a command-line interface.
 It supports creating, viewing, searching, modifying, and deleting notes using file-based storage.
 
 ---------------
