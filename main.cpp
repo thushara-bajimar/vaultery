@@ -31,7 +31,6 @@ void createAccount(){
     
     string username, password;
 
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout<<"\nPlease create your account by entering the following details:\n\n";
 
     cout<<"Username: ";
@@ -48,7 +47,6 @@ void createAccount(){
     file.close();
 
     cout<<"===== Username and Password Saved Successfully!! =====\n\n";
-    //cout<<"Please press enter\n";
 
     login();
     
@@ -62,7 +60,7 @@ void login(){
     
     string username, password;
 
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
    
     cout<<"Username: ";
     getline(cin, username);
@@ -93,7 +91,7 @@ void login(){
 
     }else{
         cout<<"You don't have any such account. Please create an account.\n";
-        //createAccount();
+        createAccount();
         return;
     }
 }
@@ -147,8 +145,6 @@ void createNote(){
     
     string title, content;
 
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
     cout<<"Title: ";
     getline(cin, title);
 
@@ -172,7 +168,7 @@ void createNote(){
 
     cout<<"\n===== File Created Successfully!! =====\n\n";
 
-    cout<<"Please press enter to return to the main menu...\n";
+    cout<<"\nPlease press enter to return to the main menu...\n";
     cin.get();
 
 }
@@ -204,6 +200,9 @@ void viewAllNotes(){
 
     file.close();
 
+    cout<<"\nPlease press enter to return to the main menu...\n";
+    cin.get();
+
 }
 
 // Search by title
@@ -214,8 +213,6 @@ void searchNote(){
     
     string searchTitle;
     string line;
-
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the title of the entry you want to search: ";
     getline(cin, searchTitle);
@@ -249,6 +246,9 @@ void searchNote(){
 
     file.close();
 
+    cout<<"\nPlease press enter to return to the main menu...\n";
+    cin.get();
+
 }
 
 // Modify the existing notes
@@ -259,8 +259,6 @@ void modifyNote(){
     
     string modTitle;
     string line;
-
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to modify: ";
     getline(cin, modTitle);
@@ -317,7 +315,7 @@ void modifyNote(){
         cout<<"Entry not found!\n";
     }
 
-    cout<<"Please press enter to return to the main menu...\n";
+    cout<<"\nPlease press enter to return to the main menu...\n";
     cin.get();
 }
 
@@ -329,8 +327,6 @@ void deleteNote(){
     
     string delTitle;
     string line;
-
-    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"\nEnter the entry you want to delete: ";
     getline(cin, delTitle);
@@ -375,14 +371,14 @@ void deleteNote(){
         cout<<"\nEntry not found!\n";
     }
 
-    cout<<"Please press enter to return to the main menu...\n";
+    cout<<"\nPlease press enter to return to the main menu...\n";
     cin.get();
 
 }
 
 // Terminate the program
 void exitProgram(){
-    cout<<"\n\n\t======**EXITING.....**======\n\n======**Thank you!!. Let's meet next time....**======\n\n";
+    cout<<"\n\n\t========...EXITING...========\n\n========...Thank you!!. Let's meet next time...========\n\n";
 
     exit(0);
 
@@ -392,6 +388,8 @@ void exitProgram(){
 int main(){
     int choice;
     int opt;
+
+    cout<<"Please press Enter to continue...\n\n";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout<<"=============================================================\n";
